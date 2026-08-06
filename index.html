@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🕷️ Spider-Man Invitation</title>
+  <meta name="description" content="A special Spider-Man themed invitation for the bestest bestie!"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&display=swap" rel="stylesheet"/>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red:   #E8192C;
+      --red2:  #FF3A4A;
+      --blue:  #0D1B4B;
+      --blue2: #1635A8;
+      --gold:  #FFD166;
+      --white: #EEF2FF;
+    }
+
+    html, body {
+      width: 100%; min-height: 100vh;
+      overflow-x: hidden;
+      font-family: 'Nunito', sans-serif;
+    }
+
+    /* ─── BG ──────────────────────────────────────────── */
+    body {
+      background: #06091a;
+      display: flex; align-items: center; justify-content: center;
+      min-height: 100vh;
+    }
+
+    .bg {
+      position: fixed; inset: 0; z-index: 0;
+      background: url('spiderman_bg_1786031560151.png') center center / cover no-repeat;
+    }
+    .bg-overlay {
+      position: fixed; inset: 0; z-index: 1;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 100%, rgba(14,30,90,0.85) 0%, transparent 70%),
+        linear-gradient(to bottom, rgba(4,6,18,0.35) 0%, rgba(4,6,18,0.72) 60%, rgba(4,6,18,0.92) 100%);
+    }
+
+    /* ─── Rain canvas ─────────────────────────────────── */
+    #rain { position: fixed; inset: 0; z-index: 2; pointer-events: none; opacity: 0.35; }
+
+    /* ─── Swinging spider ─────────────────────────────── */
+    .web-string {
+      position: fixed; top: 0; right: 11vw;
+      width: 1.5px; height: 160px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.7), rgba(255,255,255,0.05));
+      z-index: 6; transform-origin: top center;
+      animation: swing 3.5s ease-in-out infinite;
+    }
+    .swing-spider {
+      position: fixed; top: 152px; right: calc(11vw - 16px);
+      font-size: 34px; z-index: 7; transform-origin: top center;
+      animation: swing 3.5s ease-in-out infinite;
+      filter: drop-shadow(0 0 10px rgba(230,30,50,0.6));
+    }
+    @keyframes swing {
+      0%,100% { transform: rotate(-22deg); }
+      50%      { transform: rotate(22deg);  }
+    }
+
+    /* ─── Web corners ─────────────────────────────────── */
+    .web-corner { position: fixed; z-index: 3; opacity: 0.22; }
+    .web-corner.tl { top: 0; left: 0; }
+    .web-corner.tr { top: 0; right: 0; transform: scaleX(-1); }
+
+    /* ─── CARD ────────────────────────────────────────── */
+    .card-wrap {
+      position: relative; z-index: 10;
+      width: 92%; max-width: 580px;
+      padding: 3px; /* for animated border */
+      border-radius: 28px;
+    }
+
+    /* Animated gradient border */
+    .card-wrap::before {
+      content: '';
+      position: absolute; inset: 0;
+      border-radius: 28px;
+      padding: 2px;
+      background: conic-gradient(
+        from var(--angle, 0deg),
+        #E8192C 0%, #FF6B6B 15%, #1635A8 30%,
+        #5B8CFF 45%, #E8192C 60%, #FFD166 75%, #E8192C 100%
+      );
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor; mask-composite: exclude;
+      animation: borderSpin 4s linear infinite;
+    }
+    @property --angle { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
+    @keyframes borderSpin { to { --angle: 360deg; } }
+
+    .card {
+      position: relative;
+      background: linear-gradient(145deg,
+        rgba(8,12,38,0.88) 0%,
+        rgba(14,22,62,0.82) 50%,
+        rgba(8,12,38,0.90) 100%
+      );
+      border-radius: 26px;
+      padding: 50px 48px 52px;
+      text-align: center;
+      backdrop-filter: blur(24px) saturate(1.4);
+      -webkit-backdrop-filter: blur(24px) saturate(1.4);
+      overflow: hidden;
+    }
+
+    /* noise texture overlay */
+    .card::before {
+      content: '';
+      position: absolute; inset: 0; border-radius: 26px;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.025; pointer-events: none; z-index: 0;
+    }
+
+    /* Dot grid */
+    .card::after {
+      content: '';
+      position: absolute; inset: 0; border-radius: 26px;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.045) 1px, transparent 1px);
+      background-size: 24px 24px;
+      pointer-events: none; z-index: 0;
+    }
+
+    .card > * { position: relative; z-index: 1; }
+
+    /* ─── Top glow bar ────────────────────────────────── */
+    .top-bar {
+      position: absolute; top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 120px; height: 3px;
+      background: linear-gradient(90deg, transparent, var(--red2), var(--gold), var(--red2), transparent);
+      border-radius: 0 0 6px 6px;
+      box-shadow: 0 0 18px 4px rgba(232,25,44,0.5);
+    }
+
+    /* ─── Spider web SVG icon ─────────────────────────── */
+    .spider-icon-wrap {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 90px; height: 90px; margin-bottom: 6px;
+      background: radial-gradient(circle, rgba(232,25,44,0.15), transparent 70%);
+      border-radius: 50%;
+      animation: iconFloat 3s ease-in-out infinite;
+    }
+    @keyframes iconFloat {
+      0%,100% { transform: translateY(0);   filter: drop-shadow(0 0 18px rgba(232,25,44,0.7)); }
+      50%      { transform: translateY(-8px); filter: drop-shadow(0 0 32px rgba(255,100,100,1)); }
+    }
+
+    /* ─── Badge ───────────────────────────────────────── */
+    .badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: 'Bangers', cursive;
+      font-size: 12px; letter-spacing: 5px;
+      color: var(--red2);
+      text-transform: uppercase;
+      margin-bottom: 32px;
+      padding: 6px 18px;
+      border: 1px solid rgba(232,25,44,0.3);
+      border-radius: 50px;
+      background: rgba(232,25,44,0.06);
+      backdrop-filter: blur(4px);
+    }
+    .badge-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--red2);
+      box-shadow: 0 0 8px var(--red2);
+      animation: blink 1.5s ease-in-out infinite;
+    }
+    @keyframes blink { 0%,100% { opacity:1; } 50% { opacity:0.2; } }
+
+    /* ─── Message ─────────────────────────────────────── */
+    .message {
+      font-size: 20px; font-weight: 700;
+      color: rgba(220,228,255,0.92);
+      line-height: 1.7; margin-bottom: 10px;
+      text-shadow: 0 2px 16px rgba(0,0,0,0.6);
+    }
+    .message .name {
+      font-size: 24px; font-weight: 900; font-style: italic;
+      background: linear-gradient(135deg, var(--gold) 0%, #FF9F43 50%, var(--gold) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 12px rgba(255,209,102,0.5));
+    }
+    .message .spidey {
+      font-size: 22px; font-weight: 900;
+      background: linear-gradient(135deg, var(--red2) 0%, #FF8C8C 50%, var(--red2) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 10px rgba(232,25,44,0.5));
+    }
+
+    /* ─── Divider ─────────────────────────────────────── */
+    .divider {
+      display: flex; align-items: center; gap: 12px;
+      margin: 28px 0 34px;
+    }
+    .divider-line {
+      flex: 1; height: 1px;
+      background: linear-gradient(to right, transparent, rgba(255,255,255,0.12), transparent);
+    }
+    .divider-icon { font-size: 16px; opacity: 0.5; }
+
+    /* ─── BUTTONS ─────────────────────────────────────── */
+    .choices { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+    .btn {
+      position: relative; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 0 32px; height: 58px; min-width: 150px;
+      border-radius: 16px; border: none; outline: none;
+      font-family: 'Nunito', sans-serif;
+      font-size: 18px; font-weight: 900; letter-spacing: 0.5px;
+      overflow: hidden; transition: transform 0.2s, box-shadow 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn::before {
+      content: ''; position: absolute; inset: 0;
+      background: rgba(255,255,255,0.08);
+      transform: translateY(100%); transition: transform 0.3s ease;
+    }
+    .btn:hover::before { transform: translateY(0); }
+    .btn:hover { transform: translateY(-4px); }
+    .btn:active { transform: scale(0.96); }
+
+    /* YES */
+    .btn-yes {
+      background: linear-gradient(135deg, #12B05E 0%, #0ED470 50%, #0CB85F 100%);
+      color: #fff;
+      box-shadow: 0 6px 30px rgba(14,212,112,0.35), 0 2px 8px rgba(0,0,0,0.3),
+                  inset 0 1px 0 rgba(255,255,255,0.2);
+    }
+    .btn-yes:hover {
+      box-shadow: 0 12px 40px rgba(14,212,112,0.55), 0 4px 16px rgba(0,0,0,0.4),
+                  inset 0 1px 0 rgba(255,255,255,0.25);
+    }
+
+    /* NO */
+    .btn-no {
+      background: linear-gradient(135deg, #C41020 0%, #E8192C 50%, #C41020 100%);
+      color: #fff;
+      box-shadow: 0 6px 30px rgba(232,25,44,0.35), 0 2px 8px rgba(0,0,0,0.3),
+                  inset 0 1px 0 rgba(255,255,255,0.15);
+    }
+    .btn-no:hover {
+      box-shadow: 0 12px 40px rgba(232,25,44,0.55), 0 4px 16px rgba(0,0,0,0.4),
+                  inset 0 1px 0 rgba(255,255,255,0.2);
+    }
+
+    .btn-icon { font-size: 22px; line-height: 1; }
+    .btn-label { line-height: 1; }
+
+    /* ─── Response ────────────────────────────────────── */
+    .response {
+      margin-top: 28px; min-height: 72px;
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      opacity: 0; transform: translateY(16px) scale(0.95);
+      transition: all 0.5s cubic-bezier(0.34,1.56,0.64,1);
+      pointer-events: none;
+    }
+    .response.show {
+      opacity: 1; transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+    .response-headline {
+      font-family: 'Bangers', cursive;
+      font-size: 38px; letter-spacing: 3px; line-height: 1;
+    }
+    .response-sub {
+      font-size: 14px; font-weight: 600; opacity: 0.75; letter-spacing: 1px;
+    }
+    .res-yes .response-headline {
+      background: linear-gradient(135deg, #50DC78, #A8FFB8, #50DC78);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      filter: drop-shadow(0 0 20px rgba(80,220,120,0.9));
+    }
+    .res-yes .response-sub { color: #78F59A; }
+
+    .res-no .response-headline {
+      background: linear-gradient(135deg, var(--red2), #FF9090, var(--red2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      filter: drop-shadow(0 0 20px rgba(255,58,74,0.9));
+    }
+    .res-no .response-sub { color: #FF8080; }
+
+    /* ─── Floating emojis ─────────────────────────────── */
+    .floater {
+      position: fixed; pointer-events: none; z-index: 999;
+      animation: floatUp 2.4s cubic-bezier(0.25,0.46,0.45,0.94) forwards;
+      will-change: transform, opacity;
+    }
+    @keyframes floatUp {
+      0%   { transform: translateY(0) scale(0.3) rotate(-15deg); opacity: 0; }
+      12%  { opacity: 1; }
+      55%  { transform: translateY(-260px) scale(1.15) rotate(10deg); opacity: 1; }
+      100% { transform: translateY(-460px) scale(0.7) rotate(-8deg); opacity: 0; }
+    }
+
+    /* ─── Shake ───────────────────────────────────────── */
+    .shake {
+      animation: shakeBtn 0.45s cubic-bezier(.36,.07,.19,.97) both !important;
+      transform: translate3d(0,0,0);
+    }
+    @keyframes shakeBtn {
+      10%,90% { transform: translate3d(-4px,0,0) rotate(-1deg); }
+      20%,80% { transform: translate3d( 6px,0,0) rotate( 1deg); }
+      30%,50%,70% { transform: translate3d(-6px,0,0) rotate(-1.5deg); }
+      40%,60% { transform: translate3d( 6px,0,0) rotate( 1.5deg); }
+    }
+
+    /* ─── Scanline shimmer ─────────────────────────────── */
+    .scanline {
+      position: absolute; inset: 0; border-radius: 26px; z-index: 2;
+      background: linear-gradient(to bottom,
+        transparent 0%, rgba(255,255,255,0.012) 50%, transparent 100%);
+      background-size: 100% 4px;
+      pointer-events: none;
+      animation: scanMove 6s linear infinite;
+    }
+    @keyframes scanMove {
+      0%   { background-position: 0 0; }
+      100% { background-position: 0 400px; }
+    }
+
+    /* ─── Bottom credit ───────────────────────────────── */
+    .credit {
+      position: relative; z-index: 1;
+      margin-top: 28px;
+      font-size: 11px; letter-spacing: 2px;
+      color: rgba(255,255,255,0.2);
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Layers -->
+<div class="bg"></div>
+<div class="bg-overlay"></div>
+<canvas id="rain"></canvas>
+
+<!-- Web corners -->
+<svg class="web-corner tl" width="200" height="200" viewBox="0 0 200 200" fill="none">
+  <g stroke="white" stroke-width="1">
+    <line x1="0" y1="0" x2="200" y2="0"/><line x1="0" y1="0" x2="0" y2="200"/>
+    <path d="M0,0 L130,130" stroke-width="0.8" stroke-dasharray="3,4"/>
+    <path d="M0,0 Q0,70 0,140"  stroke-width="0.6" stroke-dasharray="3,5"/>
+    <path d="M0,0 Q70,0 140,0"  stroke-width="0.6" stroke-dasharray="3,5"/>
+    <circle cx="0" cy="0" r="45"  fill="none" stroke-width="0.7" stroke-dasharray="2,5"/>
+    <circle cx="0" cy="0" r="90"  fill="none" stroke-width="0.6" stroke-dasharray="2,6"/>
+    <circle cx="0" cy="0" r="140" fill="none" stroke-width="0.5" stroke-dasharray="2,7"/>
+    <circle cx="0" cy="0" r="195" fill="none" stroke-width="0.4" stroke-dasharray="2,8"/>
+  </g>
+</svg>
+<svg class="web-corner tr" width="200" height="200" viewBox="0 0 200 200" fill="none">
+  <g stroke="white" stroke-width="1">
+    <line x1="0" y1="0" x2="200" y2="0"/><line x1="0" y1="0" x2="0" y2="200"/>
+    <path d="M0,0 L130,130" stroke-width="0.8" stroke-dasharray="3,4"/>
+    <path d="M0,0 Q0,70 0,140"  stroke-width="0.6" stroke-dasharray="3,5"/>
+    <path d="M0,0 Q70,0 140,0"  stroke-width="0.6" stroke-dasharray="3,5"/>
+    <circle cx="0" cy="0" r="45"  fill="none" stroke-width="0.7" stroke-dasharray="2,5"/>
+    <circle cx="0" cy="0" r="90"  fill="none" stroke-width="0.6" stroke-dasharray="2,6"/>
+    <circle cx="0" cy="0" r="140" fill="none" stroke-width="0.5" stroke-dasharray="2,7"/>
+    <circle cx="0" cy="0" r="195" fill="none" stroke-width="0.4" stroke-dasharray="2,8"/>
+  </g>
+</svg>
+
+<!-- Swinging spider -->
+<div class="web-string"></div>
+<div class="swing-spider">🕷️</div>
+
+<!-- CARD -->
+<div class="card-wrap">
+  <div class="card">
+    <div class="top-bar"></div>
+    <div class="scanline"></div>
+
+    <!-- Spider icon -->
+    <div class="spider-icon-wrap">
+      <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Web spokes -->
+        <line x1="32" y1="4"  x2="32" y2="60" stroke="rgba(255,255,255,0.5)" stroke-width="1.2"/>
+        <line x1="4"  y1="32" x2="60" y2="32" stroke="rgba(255,255,255,0.5)" stroke-width="1.2"/>
+        <line x1="10" y1="10" x2="54" y2="54" stroke="rgba(255,255,255,0.5)" stroke-width="1.2"/>
+        <line x1="54" y1="10" x2="10" y2="54" stroke="rgba(255,255,255,0.5)" stroke-width="1.2"/>
+        <!-- Web rings -->
+        <circle cx="32" cy="32" r="8"  fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="1.1"/>
+        <circle cx="32" cy="32" r="16" fill="none" stroke="rgba(255,255,255,0.42)" stroke-width="1.1"/>
+        <circle cx="32" cy="32" r="24" fill="none" stroke="rgba(255,255,255,0.3)"  stroke-width="1"/>
+        <circle cx="32" cy="32" r="28" fill="none" stroke="rgba(232,25,44,0.4)"    stroke-width="0.8"/>
+        <!-- Center dot -->
+        <circle cx="32" cy="32" r="3"  fill="rgba(255,255,255,0.9)"/>
+      </svg>
+    </div>
+
+    <!-- Badge -->
+    <div class="badge">
+      <span class="badge-dot"></span>
+      Special Invitation
+      <span class="badge-dot"></span>
+    </div>
+
+    <!-- Message -->
+    <p class="message">
+      Hey my <span class="name">cute, sweet</span><br/>
+      and <span class="name">bestest bestie</span> 🥹<br/><br/>
+      Would you like to accompany<br/>
+      my journey on watching the<br/>
+      <span class="spidey">full Spider‑Man series?</span> 🕷️🎬
+    </p>
+
+    <!-- Divider -->
+    <div class="divider">
+      <div class="divider-line"></div>
+      <span class="divider-icon">🕸️</span>
+      <div class="divider-line"></div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="choices">
+      <button class="btn btn-yes" id="btn-yes" onclick="handleYes()">
+        <span class="btn-icon">💚</span>
+        <span class="btn-label">Yes!</span>
+      </button>
+      <button class="btn btn-no" id="btn-no" onclick="handleNo()">
+        <span class="btn-icon" id="no-icon">💀</span>
+        <span class="btn-label" id="no-label">No</span>
+      </button>
+    </div>
+
+    <!-- Response -->
+    <div class="response" id="response">
+      <div class="response-headline" id="res-headline"></div>
+      <div class="response-sub" id="res-sub"></div>
+    </div>
+
+    <p class="credit">🕷 with love · spidey universe</p>
+  </div>
+</div>
+
+<script>
+/* ── Rain canvas ─────────────────────────────────── */
+(function() {
+  const canvas = document.getElementById('rain');
+  const ctx = canvas.getContext('2d');
+  let drops = [];
+
+  function resize() {
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  for (let i = 0; i < 180; i++) {
+    drops.push({
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight,
+      len: 8 + Math.random() * 18,
+      speed: 8 + Math.random() * 14,
+      opacity: 0.15 + Math.random() * 0.4,
+      width: 0.5 + Math.random() * 0.8
+    });
+  }
+
+  function drawRain() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drops.forEach(d => {
+      ctx.beginPath();
+      ctx.moveTo(d.x, d.y);
+      ctx.lineTo(d.x - d.len * 0.18, d.y + d.len);
+      const g = ctx.createLinearGradient(d.x, d.y, d.x, d.y + d.len);
+      g.addColorStop(0, `rgba(180,210,255,0)`);
+      g.addColorStop(1, `rgba(200,220,255,${d.opacity})`);
+      ctx.strokeStyle = g;
+      ctx.lineWidth = d.width;
+      ctx.stroke();
+      d.y += d.speed;
+      if (d.y > canvas.height + 20) {
+        d.y = -20;
+        d.x = Math.random() * canvas.width;
+      }
+    });
+    requestAnimationFrame(drawRain);
+  }
+  drawRain();
+})();
+
+/* ── Emoji burst ─────────────────────────────────── */
+function burst(emojis, count) {
+  const cx = window.innerWidth  / 2;
+  const cy = window.innerHeight / 2;
+  for (let i = 0; i < count; i++) {
+    setTimeout(() => {
+      const el = document.createElement('div');
+      el.className = 'floater';
+      el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      el.style.cssText = `
+        left: ${cx + (Math.random() - 0.5) * 280}px;
+        top:  ${cy + 80}px;
+        font-size: ${22 + Math.random() * 22}px;
+        animation-duration: ${1.9 + Math.random() * 0.9}s;
+        animation-delay: 0s;
+      `;
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 3200);
+    }, i * 70);
+  }
+}
+
+/* ── Response helpers ────────────────────────────── */
+const response   = document.getElementById('response');
+const resHead    = document.getElementById('res-headline');
+const resSub     = document.getElementById('res-sub');
+
+function showResponse(headline, sub, cls) {
+  response.className = 'response show ' + cls;
+  resHead.textContent = headline;
+  resSub.textContent  = sub;
+}
+
+/* ── YES ──────────────────────────────────────────── */
+function handleYes() {
+  burst(['💖','💗','💕','💞','💓','🌸','✨','💝','🥰','😍','💫','🎉','🌟','🥳'], 20);
+  showResponse('Good boiiii 💖', '— bestie approved the watchathon! —', 'res-yes');
+  const btn = document.getElementById('btn-yes');
+  btn.style.transform = 'scale(1.08)';
+  setTimeout(() => btn.style.transform = '', 300);
+}
+
+/* ── NO ───────────────────────────────────────────── */
+let noCount = 0;
+const noTaunts = [
+  "No?? Really?? 😈",
+  "Still no?! Bold. 😂",
+  "LOL okay 'no' 😈💀",
+  "You WILL watch it 😏",
+  "Resistance is futile 🦹",
+];
+const noSubs = [
+  "— you have no choice, bestie —",
+  "— the villain laughs at you —",
+  "— Spidey always wins 🕷️ —",
+  "— resistance is futile —",
+  "— mwahahaha 😈😂 —",
+];
+
+function handleNo() {
+  noCount++;
+  burst(['😈','😂','🦹‍♂️','💀','😏','🕷️','😤','👻','🙈','😈','😂','🤣','😈'], 22);
+  const idx = Math.min(noCount - 1, noTaunts.length - 1);
+  document.getElementById('no-icon').textContent  = '😈';
+  document.getElementById('no-label').textContent = 'No…';
+  showResponse(
+    "You have no choice! 😈",
+    noSubs[idx % noSubs.length],
+    'res-no'
+  );
+  const btn = document.getElementById('btn-no');
+  btn.classList.remove('shake');
+  void btn.offsetWidth;
+  btn.classList.add('shake');
+  setTimeout(() => btn.classList.remove('shake'), 500);
+}
+</script>
+</body>
+</html>
